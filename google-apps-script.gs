@@ -21,7 +21,7 @@ function doPost(e) {
 
     var isAttending = data.attendance === 'oui';
     sheet.appendRow([
-      Utilities.formatDate(new Date(), 'Indian/Reunion', 'dd/MM/yyyy HH:mm'),
+      Utilities.formatDate(new Date(), 'Europe/Paris', 'dd/MM/yyyy HH:mm'),
       String(data.name).slice(0, 200),
       String(data.email).slice(0, 200),
       isAttending ? 'Présent' : 'Absent',

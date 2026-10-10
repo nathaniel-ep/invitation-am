@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony & Mélissa — 23 Janvier 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ CURSEUR COLOMBE ============ -->
+<div class="cursor-dove" id="cursorDove">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <!-- Colombe stylisée -->
+    <defs>
+      <radialGradient id="doveBody" cx="40%" cy="40%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="70%" stop-color="#f5f0e0"/>
+        <stop offset="100%" stop-color="#d8cfb8"/>
+      </radialGradient>
+      <linearGradient id="doveWing" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#c8c0a8"/>
+      </linearGradient>
+    </defs>
+    <!-- Corps -->
+    <ellipse cx="32" cy="36" rx="14" ry="10" fill="url(#doveBody)" stroke="#8a8266" stroke-width="0.5"/>
+    <!-- Tête -->
+    <circle cx="44" cy="28" r="6" fill="url(#doveBody)" stroke="#8a8266" stroke-width="0.5"/>
+    <!-- Bec -->
+    <path d="M50 28 L54 27 L50 30 Z" fill="#c89e5a"/>
+    <!-- Œil -->
+    <circle cx="46" cy="27" r="0.8" fill="#3d2818"/>
+    <!-- Aile -->
+    <path d="M22 32 Q20 22 30 24 Q36 26 38 36 Q30 40 22 32 Z" fill="url(#doveWing)" stroke="#8a8266" stroke-width="0.5"/>
+    <!-- Détails plumes aile -->
+    <path d="M26 28 Q30 30 32 34" stroke="#a8a088" stroke-width="0.4" fill="none"/>
+    <path d="M28 26 Q32 28 34 32" stroke="#a8a088" stroke-width="0.4" fill="none"/>
+    <!-- Queue -->
+    <path d="M18 38 L12 42 L18 40 L14 44 L20 40 Z" fill="url(#doveBody)" stroke="#8a8266" stroke-width="0.5"/>
+    <!-- Patte (juste un point) -->
+    <line x1="34" y1="46" x2="34" y2="48" stroke="#c89e5a" stroke-width="0.6"/>
+  </svg>
+</div>
+
+<!-- ============ ÉCRAN CODE D'ACCÈS ============ -->
+<div class="access-screen" id="accessScreen">
+  <!-- Ornements dorés en angles -->
+  <svg class="access-corner top-left" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.8">
+      <path d="M10 10 L10 40 M10 10 L40 10"/>
+      <path d="M10 10 Q25 25 40 10 Q25 25 10 40" opacity="0.5"/>
+      <circle cx="10" cy="10" r="2" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="access-corner top-right" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.8">
+      <path d="M90 10 L90 40 M90 10 L60 10"/>
+      <path d="M90 10 Q75 25 60 10 Q75 25 90 40" opacity="0.5"/>
+      <circle cx="90" cy="10" r="2" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="access-corner bottom-left" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.8">
+      <path d="M10 90 L10 60 M10 90 L40 90"/>
+      <path d="M10 90 Q25 75 40 90 Q25 75 10 60" opacity="0.5"/>
+      <circle cx="10" cy="90" r="2" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="access-corner bottom-right" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.8">
+      <path d="M90 90 L90 60 M90 90 L60 90"/>
+      <path d="M90 90 Q75 75 60 90 Q75 75 90 60" opacity="0.5"/>
+      <circle cx="90" cy="90" r="2" fill="currentColor"/>
+    </g>
+  </svg>
+
+  <div class="access-content">
+    <div class="access-monogram">A &amp; M</div>
+    <p class="access-eyebrow">Invitation privée</p>
+    <p class="access-title">Veuillez saisir votre code d'accès</p>
+    
+    <form class="access-form" id="accessForm">
+      <input 
+        type="text" 
+        id="accessInput" 
+        class="access-input" 
+        placeholder="Code d'accès"
+        autocomplete="off"
+        spellcheck="false"
+        required
+      >
+      <button type="submit" class="access-btn">Accéder</button>
+    </form>
+    <p class="access-error" id="accessError">Code incorrect. Veuillez réessayer.</p>
+    <p class="access-help">Le code vous a été transmis avec votre invitation</p>
+  </div>
+</div>
+
+<!-- ============ ÉCRAN ENVELOPPE ============ -->
+<div class="envelope-screen" id="envelopeScreen">
+  
+  <!-- Ornements dorés discrets en angles -->
+  <svg class="env-ornament top-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.5">
+      <path d="M20 20 L20 80 M20 20 L80 20"/>
+      <path d="M30 30 Q60 50 90 30" opacity="0.6"/>
+      <path d="M30 30 Q50 60 30 90" opacity="0.6"/>
+      <circle cx="20" cy="20" r="2.5" fill="currentColor"/>
+      <circle cx="35" cy="35" r="1" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="env-ornament top-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.5">
+      <path d="M180 20 L180 80 M180 20 L120 20"/>
+      <path d="M170 30 Q140 50 110 30" opacity="0.6"/>
+      <path d="M170 30 Q150 60 170 90" opacity="0.6"/>
+      <circle cx="180" cy="20" r="2.5" fill="currentColor"/>
+      <circle cx="165" cy="35" r="1" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="env-ornament bottom-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.5">
+      <path d="M20 180 L20 120 M20 180 L80 180"/>
+      <path d="M30 170 Q60 150 90 170" opacity="0.6"/>
+      <circle cx="20" cy="180" r="2.5" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="env-ornament bottom-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.5">
+      <path d="M180 180 L180 120 M180 180 L120 180"/>
+      <path d="M170 170 Q140 150 110 170" opacity="0.6"/>
+      <circle cx="180" cy="180" r="2.5" fill="currentColor"/>
+    </g>
+  </svg>
+
+  <div class="envelope-instruction">Cliquez pour ouvrir l'invitation</div>
+  
+  <div class="envelope-wrap">
+    <div class="envelope" id="envelope">
+      <div class="envelope-body"></div>
+      
+      <div class="envelope-letter">
+        <div class="letter-eyebrow">Vous êtes invité(e)s au mariage de</div>
+        <div class="letter-divider">
+          <span class="l"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <ellipse cx="12" cy="12" rx="3" ry="6" transform="rotate(-30 12 12)"/>
+          </svg>
+          <span class="l"></span>
+        </div>
+        <div class="letter-monogram">Anthony &amp; Mélissa</div>
+        <div class="letter-divider">
+          <span class="l"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <ellipse cx="12" cy="12" rx="3" ry="6" transform="rotate(-30 12 12)"/>
+          </svg>
+          <span class="l"></span>
+        </div>
+        <div class="letter-date">Samedi 23 janvier 2027 — Saint-Pierre, La Réunion</div>
+      </div>
+      
+      <div class="envelope-flap">
+        <svg class="envelope-flap-deco" width="50" height="14" viewBox="0 0 50 14">
+          <path d="M5 7 Q15 3 25 7 Q35 11 45 7" stroke="currentColor" stroke-width="0.8" fill="none"/>
+          <ellipse cx="12" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.6"/>
+          <ellipse cx="25" cy="8" rx="3" ry="1.2" fill="currentColor" opacity="0.6"/>
+          <ellipse cx="38" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.6"/>
+        </svg>
+      </div>
+      
+      <div class="wax-seal">
+        <div class="wax-seal-disc">
+          <div class="wax-seal-content">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff5d6"/>
+                  <stop offset="50%" stop-color="#e8c878"/>
+                  <stop offset="100%" stop-color="#a87f3a"/>
+                </linearGradient>
+              </defs>
+              <g>
+                <!-- Alliance 1 (gauche) -->
+                <ellipse cx="32" cy="44" rx="13" ry="12" 
+                  fill="none" stroke="url(#ringGrad)" stroke-width="3"/>
+                <ellipse cx="32" cy="44" rx="13" ry="12" 
+                  fill="none" stroke="#fff5d6" stroke-width="0.6" 
+                  opacity="0.7"/>
+                
+                <!-- Alliance 2 (droite) - entrelacée -->
+                <ellipse cx="48" cy="44" rx="13" ry="12" 
+                  fill="none" stroke="url(#ringGrad)" stroke-width="3"/>
+                <ellipse cx="48" cy="44" rx="13" ry="12" 
+                  fill="none" stroke="#fff5d6" stroke-width="0.6" 
+                  opacity="0.7"/>
+                
+                <!-- Effet d'entrelacement : redessine un bout de la 1ère par-dessus -->
+                <path d="M 38 36 A 13 12 0 0 0 35 33" 
+                  fill="none" stroke="url(#ringGrad)" stroke-width="3"/>
+                <path d="M 38 52 A 13 12 0 0 1 35 55" 
+                  fill="none" stroke="url(#ringGrad)" stroke-width="3"/>
+                
+                <!-- Petite branche d'olivier en haut -->
+                <g opacity="0.95">
+                  <path d="M 22 19 Q 40 12 58 19" stroke="#fff5d6" stroke-width="0.7" fill="none"/>
+                  <ellipse cx="26" cy="18" rx="3.2" ry="1.2" fill="#fff5d6" transform="rotate(-30 26 18)"/>
+                  <ellipse cx="32" cy="14" rx="3.2" ry="1.2" fill="#fff5d6" transform="rotate(-15 32 14)"/>
+                  <ellipse cx="40" cy="12" rx="3.2" ry="1.2" fill="#fff5d6" transform="rotate(0 40 12)"/>
+                  <ellipse cx="48" cy="14" rx="3.2" ry="1.2" fill="#fff5d6" transform="rotate(15 48 14)"/>
+                  <ellipse cx="54" cy="18" rx="3.2" ry="1.2" fill="#fff5d6" transform="rotate(30 54 18)"/>
+                </g>
+                
+                <!-- Petite branche en bas -->
+                <g opacity="0.7">
+                  <path d="M 26 67 Q 40 71 54 67" stroke="#fff5d6" stroke-width="0.5" fill="none"/>
+                  <ellipse cx="30" cy="68" rx="2.8" ry="1" fill="#fff5d6" transform="rotate(-20 30 68)"/>
+                  <ellipse cx="40" cy="70" rx="2.8" ry="1" fill="#fff5d6" transform="rotate(0 40 70)"/>
+                  <ellipse cx="50" cy="68" rx="2.8" ry="1" fill="#fff5d6" transform="rotate(20 50 68)"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SITE PRINCIPAL ============ -->
+<div class="site" id="site">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    
+    <!-- Image d'oliveraie en arrière-plan (réaliste) -->
+    <div class="hero-bg"></div>
+    <div class="hero-veil"></div>
+    
+    <!-- Rayons de lumière dorés -->
+    <div class="light-rays">
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+      <div class="light-ray"></div>
+    </div>
+
+    <!-- Feuilles d'olivier flottantes -->
+    <div class="floating-leaves" id="floatingLeaves"></div>
+
+    <!-- Particules de lumière -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Anneau doré tournant en arrière-plan (très subtil) -->
+    <div class="hero-ring-deco" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#ringDecoGrad)" stroke-width="1.5" stroke-dasharray="2 6"/>
+        <circle cx="100" cy="100" r="80" fill="none" stroke="url(#ringDecoGrad)" stroke-width="0.8"/>
+        <defs>
+          <linearGradient id="ringDecoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e8c878"/>
+            <stop offset="100%" stop-color="#a87f3a"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow hero-line">Vous êtes invité(e)s au mariage de</p>
+      <h1 class="names hero-line">Anthony <span class="ampersand">&amp;</span> Mélissa</h1>
+    </div>
+
+    <div class="scroll-cue">
+      <span>Découvrir</span>
+      <span class="scroll-cue-arrow">↓</span>
+    </div>
+  </section>
+
+  <!-- ============ COMPTE À REBOURS ============ -->
+  <section class="countdown-section">
+    <div class="countdown-container">
+      <div class="countdown-line">
+        <span class="countdown-prefix">Plus que</span>
+        <span class="countdown-numbers">
+          <span class="countdown-number" id="days">--</span>
+          <span class="countdown-unit">jours</span>
+        </span>
+      </div>
+      <div style="margin-top: 0.5rem;">
+        <span class="countdown-suffix">avant le grand jour</span>
+      </div>
+      <div class="countdown-divider"></div>
+      <div class="countdown-sub">
+        <div class="countdown-sub-item">
+          <span class="countdown-sub-num" id="hours">--</span>
+          <span>heures</span>
+        </div>
+        <div class="countdown-sub-item">
+          <span class="countdown-sub-num" id="minutes">--</span>
+          <span>minutes</span>
+        </div>
+        <div class="countdown-sub-item">
+          <span class="countdown-sub-num" id="seconds">--</span>
+          <span>secondes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAVE THE DATE (apparait au scroll) ============ -->
+  <section class="save-the-date-section reveal">
+    <div class="std-bg"></div>
+    <div class="std-veil"></div>
+    <div class="std-content">
+      <div class="std-eyebrow">Save the Date</div>
+      <div class="std-divider">
+        <span class="line"></span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <ellipse cx="12" cy="12" rx="3" ry="7" transform="rotate(-30 12 12)"/>
+        </svg>
+        <span class="line"></span>
+      </div>
+      <h2 class="std-date">Samedi 23 janvier 2027</h2>
+      <p class="std-location">Saint-Pierre · La Réunion</p>
+    </div>
+  </section>
+
+  <!-- ============ NOTRE HISTOIRE ============ -->
+  <section class="story-section reveal">
+    <!-- Conteneur pour les feuilles tombantes -->
+    <div class="story-leaves" id="storyLeaves"></div>
+
+    <!-- Décorations en SVG dans les coins -->
+    <svg class="story-corner tl" width="240" height="240" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M20 20 Q60 40 100 70 Q130 95 150 130" stroke="#5a6e3f" stroke-width="1.5" fill="none"/>
+        <ellipse cx="40" cy="35" rx="15" ry="5" fill="#7a9258" transform="rotate(20 40 35)"/>
+        <ellipse cx="65" cy="50" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-15 65 50)"/>
+        <ellipse cx="90" cy="68" rx="15" ry="5" fill="#7a9258" transform="rotate(25 90 68)"/>
+        <ellipse cx="115" cy="88" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-10 115 88)"/>
+        <ellipse cx="135" cy="115" rx="15" ry="5" fill="#7a9258" transform="rotate(35 135 115)"/>
+        <ellipse cx="80" cy="40" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+        <ellipse cx="125" cy="100" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+      </g>
+    </svg>
+    <svg class="story-corner br" width="240" height="240" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M20 20 Q60 40 100 70 Q130 95 150 130" stroke="#5a6e3f" stroke-width="1.5" fill="none"/>
+        <ellipse cx="40" cy="35" rx="15" ry="5" fill="#7a9258" transform="rotate(20 40 35)"/>
+        <ellipse cx="65" cy="50" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-15 65 50)"/>
+        <ellipse cx="90" cy="68" rx="15" ry="5" fill="#7a9258" transform="rotate(25 90 68)"/>
+        <ellipse cx="115" cy="88" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-10 115 88)"/>
+        <ellipse cx="135" cy="115" rx="15" ry="5" fill="#7a9258" transform="rotate(35 135 115)"/>
+        <ellipse cx="80" cy="40" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+        <ellipse cx="125" cy="100" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+      </g>
+    </svg>
+
+    <div class="story-container">
+      <div class="section-eyebrow">Le commencement</div>
+      <h2 class="section-title">Notre histoire</h2>
+      <div class="section-divider">
+        <span class="line"></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <ellipse cx="12" cy="12" rx="3" ry="7" transform="rotate(-30 12 12)"/>
+        </svg>
+        <span class="line"></span>
+      </div>
+      <div class="story-text">
+        <p class="story-para">Ça faisait dix ans qu'on était voisins, mais on ne le savait pas. Nos chemins se sont enfin croisés lors d'une soirée — et au détour de la conversation, nous avons découvert que nous habitions à quelques pas l'un de l'autre depuis tout ce temps.</p>
+        
+        <!-- Médaillon : maisons côte à côte -->
+        <div class="story-medallion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M3 21V10l5-4 5 4v11M13 21V11l5-4 4 3v11M3 21h19"/>
+          </svg>
+        </div>
+
+        <p class="story-para">Ce soir-là, ce fut le coup de foudre. Et nous ne nous sommes plus jamais quittés. Un amour fou, un amour vrai.</p>
+        
+        <!-- Médaillon : cœur -->
+        <div class="story-medallion">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
+          </svg>
+        </div>
+
+        <p class="story-para">Puis, ensemble, nous avons rencontré le Christ. Le mariage n'était pas notre ambition première, mais par la grâce de Dieu, tout s'est accéléré la quatrième année. Nous avons choisi de faire confiance à Son plan, et de nous dire <em>oui</em> pour la vie.</p>
+      </div>
+      <div class="story-verse">
+        « Ce que Dieu a uni, que l'homme ne le sépare point. »
+        <small>Marc 10:9</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMME ============ -->
+  <section class="programme-section reveal">
+    <div class="programme-container">
+      <div class="programme-header">
+        <div class="section-eyebrow">Le déroulé</div>
+        <h2 class="section-title">Programme du jour</h2>
+        <div class="section-divider">
+          <span class="line"></span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="programme-cards">
+        <div class="programme-card">
+          <svg class="programme-card-deco" width="32" height="14" viewBox="0 0 50 14">
+            <path d="M5 7 Q15 3 25 7 Q35 11 45 7" stroke="currentColor" stroke-width="0.8" fill="none"/>
+            <ellipse cx="12" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="25" cy="8" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="38" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <div class="programme-card-time">11h</div>
+          <svg class="programme-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M3 21h18M5 21V8l7-5 7 5v13"/>
+            <path d="M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2"/>
+          </svg>
+          <h3>Cérémonie civile</h3>
+          <p>À la mairie</p>
+        </div>
+
+        <div class="programme-card">
+          <svg class="programme-card-deco" width="32" height="14" viewBox="0 0 50 14">
+            <path d="M5 7 Q15 3 25 7 Q35 11 45 7" stroke="currentColor" stroke-width="0.8" fill="none"/>
+            <ellipse cx="12" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="25" cy="8" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="38" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <div class="programme-card-time">15h</div>
+          <svg class="programme-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M12 2v20M5 9h14"/>
+          </svg>
+          <h3>Cérémonie religieuse</h3>
+          <p>Sous le regard de Dieu</p>
+        </div>
+
+        <div class="programme-card">
+          <svg class="programme-card-deco" width="32" height="14" viewBox="0 0 50 14">
+            <path d="M5 7 Q15 3 25 7 Q35 11 45 7" stroke="currentColor" stroke-width="0.8" fill="none"/>
+            <ellipse cx="12" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="25" cy="8" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+            <ellipse cx="38" cy="6" rx="3" ry="1.2" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <div class="programme-card-time">19h</div>
+          <svg class="programme-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M8 21h8M12 17v4M6 4h12l-1 13H7L6 4zM9 4V2h6v2"/>
+          </svg>
+          <h3>Réception &amp; Dîner</h3>
+          <p>Célébrons ensemble</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIEU ============ -->
+  <section class="venue-section reveal">
+    <div class="venue-container">
+      <div class="venue-header">
+        <div class="section-eyebrow">Le lieu</div>
+        <h2 class="section-title">Où nous retrouver</h2>
+        <div class="section-divider">
+          <span class="line"></span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="venue-card">
+        <h3 class="venue-name">Domaine du Mariage</h3>
+        <p class="venue-address">
+          4 Route Ligne Paradis<br>
+          97410 Saint-Pierre<br>
+          La Réunion
+        </p>
+        <div class="venue-actions">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=4+Route+Ligne+Paradis+97410+Saint-Pierre+La+Réunion" target="_blank" rel="noopener" class="btn btn-primary">
+            Itinéraire
+          </a>
+          <a href="https://www.google.com/maps/search/?api=1&query=4+Route+Ligne+Paradis+97410+Saint-Pierre+La+Réunion" target="_blank" rel="noopener" class="btn">
+            Voir sur Maps
+          </a>
+        </div>
+        <div class="map-frame">
+          <iframe 
+            src="https://www.google.com/maps?q=4+Route+Ligne+Paradis+97410+Saint-Pierre+La+R%C3%A9union&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Lieu du mariage">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CODE VESTIMENTAIRE ============ -->
+  <section class="dresscode-section reveal">
+    <svg class="story-corner tl" width="220" height="220" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M10 30 Q50 50 90 80 Q130 110 160 150" stroke="#5a6e3f" stroke-width="1.5" fill="none"/>
+        <ellipse cx="35" cy="40" rx="15" ry="5" fill="#7a9258" transform="rotate(20 35 40)"/>
+        <ellipse cx="60" cy="55" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-15 60 55)"/>
+        <ellipse cx="85" cy="75" rx="15" ry="5" fill="#7a9258" transform="rotate(25 85 75)"/>
+        <ellipse cx="110" cy="95" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-10 110 95)"/>
+        <ellipse cx="135" cy="120" rx="15" ry="5" fill="#7a9258" transform="rotate(30 135 120)"/>
+        <ellipse cx="75" cy="48" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+        <ellipse cx="120" cy="105" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+      </g>
+    </svg>
+    <svg class="story-corner br" width="220" height="220" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M10 30 Q50 50 90 80 Q130 110 160 150" stroke="#5a6e3f" stroke-width="1.5" fill="none"/>
+        <ellipse cx="35" cy="40" rx="15" ry="5" fill="#7a9258" transform="rotate(20 35 40)"/>
+        <ellipse cx="60" cy="55" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-15 60 55)"/>
+        <ellipse cx="85" cy="75" rx="15" ry="5" fill="#7a9258" transform="rotate(25 85 75)"/>
+        <ellipse cx="110" cy="95" rx="14" ry="4.5" fill="#5a6e3f" transform="rotate(-10 110 95)"/>
+        <ellipse cx="135" cy="120" rx="15" ry="5" fill="#7a9258" transform="rotate(30 135 120)"/>
+        <ellipse cx="75" cy="48" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+        <ellipse cx="120" cy="105" rx="3.5" ry="4.5" fill="#3d4f2e"/>
+      </g>
+    </svg>
+
+    <div class="dresscode-container">
+      <div class="section-eyebrow">L'élégance</div>
+      <h2 class="section-title">Code vestimentaire</h2>
+      <div class="section-divider">
+        <span class="line"></span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 2L8 6v4l4 2 4-2V6l-4-4zM8 10l-4 4v6h16v-6l-4-4"/>
+        </svg>
+        <span class="line"></span>
+      </div>
+
+      <div class="colors-display">
+        <div class="color-swatch">
+          <div class="color-circle color-sage"></div>
+          <div class="color-name">Vert Sauge</div>
+          <div class="color-hex">#87A085</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-circle color-chocolate"></div>
+          <div class="color-name">Marron Chocolat</div>
+          <div class="color-hex">#4A3328</div>
+        </div>
+      </div>
+
+      <p class="dresscode-note">
+        Nous serions honorés que vous accompagniez notre célébration en harmonie avec nos couleurs : <em>vert sauge</em> et <em>marron chocolat</em>. Tenue élégante souhaitée — laissez votre raffinement parler.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="rsvp-section reveal">
+    <div class="rsvp-container">
+      <div class="rsvp-header">
+        <div class="section-eyebrow">Confirmation</div>
+        <h2 class="section-title">Réponse souhaitée</h2>
+        <div class="section-divider">
+          <span class="line"></span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 7l9 6 9-6"/>
+            <rect x="3" y="5" width="18" height="14" rx="1"/>
+          </svg>
+          <span class="line"></span>
+        </div>
+        <p style="font-style: italic; color: var(--chocolate-light); margin-top: 1rem;">
+          Merci de confirmer votre présence avant le 1<sup>er</sup> décembre 2026
+        </p>
+      </div>
+
+      <form class="rsvp-form" id="rsvpForm">
+        <div class="form-group">
+          <label class="form-label" for="name">Votre nom complet</label>
+          <input type="text" id="name" name="name" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Votre email</label>
+          <input type="email" id="email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Serez-vous présent(e) ?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="yes" name="attendance" value="oui" required>
+              <label for="yes">Avec joie</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="no" name="attendance" value="non">
+              <label for="no">Avec regret</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="guestsGroup">
+          <label class="form-label" for="guests">Nombre de personnes (vous compris)</label>
+          <select id="guests" name="guests" class="form-select">
+            <option value="1">1 personne</option>
+            <option value="2">2 personnes</option>
+            <option value="3">3 personnes</option>
+            <option value="4">4 personnes</option>
+            <option value="5">5 personnes</option>
+            <option value="6">6 personnes</option>
+          </select>
+        </div>
+
+        <!-- Noms des accompagnants - généré dynamiquement -->
+        <div class="form-group" id="guestNamesGroup" style="display: none;">
+          <label class="form-label">Noms et prénoms des accompagnants</label>
+          <div id="guestNamesList"></div>
+        </div>
+
+        <div class="form-group" id="dietGroup">
+          <label class="form-label" for="diet">Régime alimentaire / Allergies</label>
+          <textarea id="diet" name="diet" class="form-textarea" placeholder="Végétarien, sans gluten, allergies..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">Un mot pour les mariés (optionnel)</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Vos vœux, un message..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Envoyer ma réponse</button>
+        <p class="form-error" id="formError" style="display: none; margin-top: 1rem; color: #a04030; font-style: italic; text-align: center;">
+          L'envoi a échoué — votre réponse n'a pas été enregistrée. Réessayez,
+          ou <a id="mailtoFallback" href="#" style="color: #a04030; text-decoration: underline;">envoyez votre réponse par email</a>.
+        </p>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="success-monogram">A &amp; M</div>
+        <h3 class="success-title">Merci infiniment !</h3>
+        <p class="success-text" id="successMessage">
+          Votre réponse a bien été envoyée. Nous avons hâte de partager ce jour avec vous.
+        </p>
+        <div class="calendar-buttons">
+          <p style="font-family: 'Tenor Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 0.5rem;">Ajouter à votre agenda</p>
+          <a href="#" id="googleCal" target="_blank" rel="noopener" class="calendar-btn">Google Calendar</a>
+          <a href="#" id="appleCal" class="calendar-btn">Apple / Outlook (.ics)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER SIGNATURE ============ -->
+  <footer class="footer reveal">
+    <!-- Branches décoratives gauche/droite -->
+    <svg class="footer-branch-deco left" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M0 50 Q60 40 120 45 Q160 48 195 42" stroke="#5a6e3f" stroke-width="1.2" fill="none"/>
+        <ellipse cx="20" cy="48" rx="10" ry="3" fill="#7a9258" transform="rotate(-15 20 48)"/>
+        <ellipse cx="50" cy="42" rx="10" ry="3" fill="#5a6e3f" transform="rotate(10 50 42)"/>
+        <ellipse cx="80" cy="46" rx="10" ry="3" fill="#7a9258" transform="rotate(-8 80 46)"/>
+        <ellipse cx="115" cy="40" rx="10" ry="3" fill="#5a6e3f" transform="rotate(15 115 40)"/>
+        <ellipse cx="145" cy="44" rx="10" ry="3" fill="#7a9258" transform="rotate(-12 145 44)"/>
+        <ellipse cx="175" cy="38" rx="10" ry="3" fill="#5a6e3f" transform="rotate(8 175 38)"/>
+        <ellipse cx="60" cy="55" rx="3" ry="4" fill="#3d4f2e"/>
+        <ellipse cx="125" cy="52" rx="3" ry="4" fill="#3d4f2e"/>
+      </g>
+    </svg>
+    <svg class="footer-branch-deco right" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M0 50 Q60 40 120 45 Q160 48 195 42" stroke="#5a6e3f" stroke-width="1.2" fill="none"/>
+        <ellipse cx="20" cy="48" rx="10" ry="3" fill="#7a9258" transform="rotate(-15 20 48)"/>
+        <ellipse cx="50" cy="42" rx="10" ry="3" fill="#5a6e3f" transform="rotate(10 50 42)"/>
+        <ellipse cx="80" cy="46" rx="10" ry="3" fill="#7a9258" transform="rotate(-8 80 46)"/>
+        <ellipse cx="115" cy="40" rx="10" ry="3" fill="#5a6e3f" transform="rotate(15 115 40)"/>
+        <ellipse cx="145" cy="44" rx="10" ry="3" fill="#7a9258" transform="rotate(-12 145 44)"/>
+        <ellipse cx="175" cy="38" rx="10" ry="3" fill="#5a6e3f" transform="rotate(8 175 38)"/>
+        <ellipse cx="60" cy="55" rx="3" ry="4" fill="#3d4f2e"/>
+        <ellipse cx="125" cy="52" rx="3" ry="4" fill="#3d4f2e"/>
+      </g>
+    </svg>
+
+    <div class="footer-content">
+      <p class="footer-quote">« Ce que Dieu a uni,<br>que l'homme ne le sépare point. »</p>
+      <p class="footer-quote-source">— Marc 10:9</p>
+      
+      <div class="footer-divider">
+        <span class="line"></span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <ellipse cx="12" cy="12" rx="3" ry="7" transform="rotate(-30 12 12)"/>
+        </svg>
+        <span class="line"></span>
+      </div>
+
+      <div class="footer-monogram">A &amp; M</div>
+      <div class="footer-meta">23 Janvier 2027 · Saint-Pierre · La Réunion</div>
+    </div>
+  </footer>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>

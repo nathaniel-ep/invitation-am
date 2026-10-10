@@ -5,7 +5,7 @@ sont envoyées à un Google Sheet via un petit script Google Apps Script.
 
 ## Mise en place (~5 min, à faire avec le compte Google choisi)
 
-1. Créer un Google Sheet, par ex. **« Réponses mariage Anthony & Mélissa »**.
+1. Créer un Google Sheet, par ex. **« Réponses mariage Emma & Lucas »**.
    (Pas besoin de créer les colonnes : le script écrit les en-têtes tout seul.)
 
 2. Dans le Sheet : **Extensions → Apps Script**, supprimer le contenu par

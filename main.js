@@ -11,7 +11,7 @@
   safeInit("écran code d'accès", () => {
   // ============ ÉCRAN CODE D'ACCÈS (en premier pour fiabilité) ============
   (function setupAccessScreen() {
-    const ACCESS_CODE = 'AM2027';
+    const ACCESS_CODE = 'DEMO2026';
     const accessScreen = document.getElementById('accessScreen');
     const accessForm = document.getElementById('accessForm');
     const accessInput = document.getElementById('accessInput');
@@ -377,7 +377,7 @@
 
   safeInit('compte à rebours', () => {
   // ============ COMPTE À REBOURS ============
-  const weddingDate = new Date('2027-01-23T11:00:00+04:00').getTime();
+  const weddingDate = new Date('2026-09-12T11:00:00+02:00').getTime();
 
   function updateCountdown() {
     const now = Date.now();
@@ -609,7 +609,7 @@
       guestNames: guestNames.join(', ') || 'Aucun',
       diet: formData.get('diet') || 'Aucun',
       message: formData.get('message') || 'Aucun message',
-      timestamp: new Date().toLocaleString('fr-FR', { timeZone: 'Indian/Reunion' })
+      timestamp: new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })
     };
 
     const isAttending = data.attendance === 'oui';
@@ -630,11 +630,11 @@
     })();
 
     const emailPromise = (async () => {
-      const resp = await fetch('https://formsubmit.co/ajax/anthony@lecosysteme.fr', {
+      const resp = await fetch('https://formsubmit.co/ajax/contact@exemple-mariage.fr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          _subject: `RSVP Mariage A&M — ${data.name} — ${isAttending ? 'PRÉSENT' : 'ABSENT'}`,
+          _subject: `RSVP Mariage E&L — ${data.name} — ${isAttending ? 'PRÉSENT' : 'ABSENT'}`,
           _captcha: 'false',
           Nom: data.name,
           Email: data.email,
@@ -658,14 +658,14 @@
       failures.forEach(f => console.error('RSVP send failed:', f.reason));
 
       // Plan C : lien mailto pré-rempli avec la réponse saisie
-      const subject = encodeURIComponent(`RSVP Mariage A&M — ${data.name} — ${isAttending ? 'PRÉSENT' : 'ABSENT'}`);
+      const subject = encodeURIComponent(`RSVP Mariage E&L — ${data.name} — ${isAttending ? 'PRÉSENT' : 'ABSENT'}`);
       const body = encodeURIComponent(
         `Nom: ${data.name}\nEmail: ${data.email}\nPrésence: ${isAttending ? 'OUI' : 'NON'}\n` +
         (isAttending ? `Personnes: ${data.guests}\nAccompagnants: ${data.guestNames}\nRégime: ${data.diet}\n` : '') +
         `Message: ${data.message}\nDate: ${data.timestamp}`
       );
       const mailtoFallback = document.getElementById('mailtoFallback');
-      if (mailtoFallback) mailtoFallback.href = `mailto:anthony@lecosysteme.fr?subject=${subject}&body=${body}`;
+      if (mailtoFallback) mailtoFallback.href = `mailto:contact@exemple-mariage.fr?subject=${subject}&body=${body}`;
 
       formError.style.display = 'block';
       submitBtn.disabled = false;
@@ -682,45 +682,53 @@
     }
 
     // Calendrier
-    const startDate = '20270123T110000';
-    const endDate = '20270124T020000';
-    const eventTitle = encodeURIComponent('Mariage Anthony & Mélissa');
+    const startDate = '20260912T110000';
+    const endDate = '20260913T020000';
+    const eventTitle = encodeURIComponent('Mariage Emma & Lucas');
     const eventDetails = encodeURIComponent('Cérémonie civile à 11h, religieuse à 15h, réception à 19h. Code vestimentaire : vert sauge & marron chocolat.');
-    const eventLocation = encodeURIComponent('4 Route Ligne Paradis, 97410 Saint-Pierre, La Réunion');
-    
-    document.getElementById('googleCal').href = 
-      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${startDate}/${endDate}&details=${eventDetails}&location=${eventLocation}&ctz=Indian/Reunion`;
+    const eventLocation = encodeURIComponent('15 Chemin des Lavandes, 83920 La Motte, France');
+
+    document.getElementById('googleCal').href =
+      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${startDate}/${endDate}&details=${eventDetails}&location=${eventLocation}&ctz=Europe/Paris`;
 
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Anthony et Melissa//Mariage//FR',
+      'PRODID:-//Emma et Lucas//Mariage//FR',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
-      // Définition du fuseau Indian/Reunion (UTC+4 fixe, sans heure d'été) —
+      // Définition du fuseau Europe/Paris (avec heure d'été) —
       // requis par la RFC 5545 pour que Outlook interprète les TZID correctement
       'BEGIN:VTIMEZONE',
-      'TZID:Indian/Reunion',
+      'TZID:Europe/Paris',
+      'BEGIN:DAYLIGHT',
+      'TZOFFSETFROM:+0100',
+      'TZOFFSETTO:+0200',
+      'TZNAME:CEST',
+      'DTSTART:19700329T020000',
+      'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+      'END:DAYLIGHT',
       'BEGIN:STANDARD',
-      'DTSTART:19700101T000000',
-      'TZOFFSETFROM:+0400',
-      'TZOFFSETTO:+0400',
-      'TZNAME:+04',
+      'TZOFFSETFROM:+0200',
+      'TZOFFSETTO:+0100',
+      'TZNAME:CET',
+      'DTSTART:19701025T030000',
+      'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
       'END:STANDARD',
       'END:VTIMEZONE',
       'BEGIN:VEVENT',
-      'UID:mariage-am-2027@lecosysteme.fr',
+      'UID:mariage-emma-lucas-2026@exemple-mariage.fr',
       'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
-      'DTSTART;TZID=Indian/Reunion:20270123T110000',
-      'DTEND;TZID=Indian/Reunion:20270124T020000',
-      'SUMMARY:Mariage Anthony & Mélissa',
+      'DTSTART;TZID=Europe/Paris:20260912T110000',
+      'DTEND;TZID=Europe/Paris:20260913T020000',
+      'SUMMARY:Mariage Emma & Lucas',
       'DESCRIPTION:Ceremonie civile a 11h\\, religieuse a 15h\\, reception a 19h.',
-      'LOCATION:4 Route Ligne Paradis\\, 97410 Saint-Pierre\\, La Reunion',
+      'LOCATION:15 Chemin des Lavandes\\, 83920 La Motte\\, France',
       'STATUS:CONFIRMED',
       'BEGIN:VALARM',
       'TRIGGER:-P7D',
       'ACTION:DISPLAY',
-      'DESCRIPTION:Mariage A&M dans une semaine',
+      'DESCRIPTION:Mariage E&L dans une semaine',
       'END:VALARM',
       'END:VEVENT',
       'END:VCALENDAR'
@@ -730,7 +738,7 @@
     const icsUrl = URL.createObjectURL(blob);
     const appleLink = document.getElementById('appleCal');
     appleLink.href = icsUrl;
-    appleLink.download = 'mariage-anthony-melissa.ics';
+    appleLink.download = 'mariage-emma-lucas.ics';
   });
 
   });
